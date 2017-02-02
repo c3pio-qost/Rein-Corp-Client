@@ -1,0 +1,15 @@
+﻿<Application x:Class="ReinCorpDesign.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+          <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ReinCorpDesign;component/Styles/MainStyleLibrary.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/ReinCorpDesign;component/Styles/MenuStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/ReinCorpDesign;component/Styles/TabControlStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/ReinCorpDesign;component/Styles/ScrollViewerStyle.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

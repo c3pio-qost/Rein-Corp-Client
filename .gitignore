@@ -1,0 +1,16 @@
+#Ignore agent-files:
+agent/bin/
+agent/FakesAssemblies/
+agent/obj/
+
+#Ignore rcdes-files:
+rcdes/bin/
+rcdes/obj/
+
+#Ignore RCHLib-files:
+RCHLib/RCHLib/bin/
+RCHLib/RCHLib/obj/
+
+#Ignore rcreslib-files:
+rcreslib/bin/
+rcreslib/obj/

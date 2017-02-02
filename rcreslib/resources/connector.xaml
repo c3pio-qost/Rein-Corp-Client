@@ -1,0 +1,99 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="{x:Type ContentControl}">
+        <Setter Property="Width" Value="350" />
+        <Setter Property="Height" Value="170" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Template">
+            <Setter.Value>
+                 <ControlTemplate TargetType="{x:Type ContentControl}">
+                    <Border x:Name="RC_MAIN_BORDER"
+                            Width="Auto"
+                            Height="Auto"
+                            Background="#FFE0E0E0"
+                            BorderThickness="0"
+                            Padding="0 0 0 0">
+                        <DockPanel Name="Dock">
+                            <DockPanel x:Name="DockHeader"
+                                       Height="18"
+                                       Background="#FFE0E0E0"
+                                       DockPanel.Dock="Top">
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           DockPanel.Dock="Top"
+                                           FontFamily="Verdana"
+                                           FontSize="12"
+                                           Foreground="Black">
+                                    Connect
+                                </TextBlock>
+                            </DockPanel>
+                            <DockPanel Margin="4,0,4,4" Background="#FF353535">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.ColumnSpan="2"
+                                               Margin="0,10,0,0"
+                                               HorizontalAlignment="Center"
+                                               FontFamily="Verdana"
+                                               FontSize="16"
+                                               Foreground="White">
+                                        Enter address to connect:
+                                    </TextBlock>
+                                    <TextBox x:Name="Address"
+                                             Grid.Row="1"
+                                             Grid.Column="0"
+                                             Grid.ColumnSpan="2"
+                                             Width="205"
+                                             Height="20"
+                                             Margin="0,15,0,5"
+                                             VerticalAlignment="Bottom"
+                                             Background="White"
+                                             TextAlignment="Center"
+                                             TextWrapping="Wrap" />
+                                    <CheckBox Grid.Row="2" 
+                                              x:Name="Add_Contact" 
+                                              Content="Add to contact list" 
+                                              Grid.ColumnSpan="2"
+                                              Grid.Column="0"
+                                              Width="205"
+                                              Height="20"
+                                              Margin="0,0,0,10"
+                                              Foreground="White"
+                                              FontFamily="Verdana"/>
+                                    <Button x:Name="Connect"
+                                            Grid.Row="3"
+                                            Grid.Column="0"
+                                            Width="98"
+                                            Height="25"
+                                            Margin="0,0,5,20"
+                                            HorizontalAlignment="Right"
+                                            Background="#FF787878"
+                                            Content="Connect"
+                                            Foreground="White" />
+                                    <Button x:Name="Cancel"
+                                            Grid.Row="3"
+                                            Grid.Column="1"
+                                            Width="98"
+                                            Height="25"
+                                            Margin="4,0,0,20"
+                                            HorizontalAlignment="Left"
+                                            Background="#FF787878"
+                                            Content="Cancel"
+                                            Foreground="White" />
+                                </Grid>
+                            </DockPanel>
+                        </DockPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

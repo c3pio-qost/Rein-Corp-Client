@@ -1,0 +1,92 @@
+﻿<Window x:Class="ProgrammAgent.m_win"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="330" Width="400"
+        MinHeight="330" MinWidth="400"
+        MaxHeight="330" MaxWidth="400"
+        Style="{StaticResource MWindowStyleChrome}"
+        >
+    <DockPanel Background="#FFE3E3E3">
+        <Grid Margin="4,22,4,4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <DockPanel Background="#3D3D3D">
+                <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" FontSize="34" Foreground="#5DB438" FontWeight="Black" HorizontalAlignment="Center">
+                REINCORP
+                </TextBlock>
+            </DockPanel>
+            <DockPanel Grid.Row="1" Background="#323232"></DockPanel>
+            <Grid Grid.Row="1" Background="#323232" HorizontalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="4"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="230"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.RowSpan="2" HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Margin="0,0,12,0" FontSize="14" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left">Login</TextBlock>
+                    <TextBlock Margin="0,0,12,0" FontSize="14" Grid.Row="1" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left">Password</TextBlock>
+                </Grid>
+                <ComboBox x:Name="Login" Grid.Row="0" Grid.Column="1" FontSize="12" Height="22" IsEditable="True" PreviewKeyUp="login_prev_key_up">
+                    <ComboBoxItem>wayfarer-artem@mail.ru</ComboBoxItem>
+                    <ComboBoxItem>sanya_a_93@mail.ru</ComboBoxItem>
+                </ComboBox>
+                <PasswordBox x:Name="Password" Grid.Row="1" PasswordChar="*" FontSize="18"  Grid.Column="1" Height="22" Password="123456"></PasswordBox>
+                <CheckBox Grid.Row="2" Grid.Column="1" Foreground="White" FontSize="11" VerticalAlignment="Center">
+                    <TextBlock FontSize="12">
+                    Remember password
+                    </TextBlock>
+                </CheckBox>
+                <Button Click="login_click" Name="login_btn" Style="{DynamicResource ButtonStyle1}" Grid.Row="3" Grid.Column="1" Width="90" Height="25" HorizontalAlignment="Left">
+                    <TextBlock FontSize="12" VerticalAlignment="Center" Foreground="White" Height="20">
+                Log in
+                    </TextBlock>
+                </Button>
+                <Button Style="{DynamicResource ButtonStyle1}" Grid.Row="3" Grid.Column="1" Width="90" Height="25" HorizontalAlignment="Right" x:Name="Cancel" Click="cancel_click">
+                    <TextBlock FontSize="12" VerticalAlignment="Center" Foreground="White" Height="20" >
+                Cancel
+                    </TextBlock>
+                </Button>
+                <Rectangle Height="1" VerticalAlignment="Bottom" Fill="White" Grid.Row="4" Grid.ColumnSpan="2" Opacity="0.2"/>
+                <Grid Grid.Row="5" Grid.ColumnSpan="2" Margin="0,15,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="35"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Foreground="White" FontSize="12">Do you have account this?</TextBlock>
+                    <Button Style="{DynamicResource ButtonStyle2}" Grid.Column="1" Height="20" Width="90" VerticalAlignment="Top" HorizontalAlignment="Right">
+                        <TextBlock FontSize="11" VerticalAlignment="Center" Foreground="White">
+                        Create account
+                        </TextBlock>
+                    </Button>
+                    <TextBlock Grid.Row="1" Foreground="White" FontSize="12">Forget your password?</TextBlock>
+                    <Button Style="{DynamicResource ButtonStyle2}" Grid.Column="1" Grid.Row="1" Height="20" Width="90" VerticalAlignment="Top" HorizontalAlignment="Right">
+                        <TextBlock FontSize="11" VerticalAlignment="Center" Foreground="White">
+                        Recover password
+                        </TextBlock>
+                    </Button>
+                </Grid>
+            </Grid>
+            <Rectangle Fill="#323232" Grid.Row="2"/>
+            <Rectangle x:Name="AttentionBackground" Grid.Row="2" Fill="#FFE70000" Opacity="0.9" Width="auto" Visibility="Hidden"/>
+            <TextBlock x:Name="AttentionText" Margin="5,0,0,0" Grid.Row="2" FontSize="11" VerticalAlignment="Center" Foreground="White" Visibility="Hidden">Incorrect login or password</TextBlock>
+        </Grid>
+    </DockPanel>
+</Window>

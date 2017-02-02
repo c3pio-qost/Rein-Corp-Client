@@ -1,0 +1,214 @@
+﻿<Window x:Class="ReinCorpDesign.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        x:Name="Window"
+        Title="ReinCorp"
+        Width="1000"
+        Height="600"
+        MinWidth="800"
+        MinHeight="600"
+        Closing="Window_Closing"
+        KeyDown="Window_KeyDown"
+        Loaded="window_loaded"
+        Style="{DynamicResource MWindowStyleChrome}"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d">
+    <Grid x:Name="LayoutRoot">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="985*" />
+            <ColumnDefinition Width="7*" />
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.ColumnSpan="2"
+                   Width="auto"
+                   Height="auto"
+                   Background="#FFE3E3E3">
+            <Grid x:Name="GridM"
+                  Width="auto"
+                  Height="auto"
+                  Background="Transparent"
+                  Style="{StaticResource Inner}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="15" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"
+                                      MinWidth="120"
+                                      MaxWidth="300" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <DockPanel Grid.ColumnSpan="2"
+                           Width="auto"
+                           Height="25"
+                           Margin="0"
+                           Background="#FFE3E3E3"
+                           DockPanel.Dock="Top">
+                    <TextBlock x:Name="User_Background"
+                               Width="auto"
+                               MaxWidth="300"
+                               Margin="0,0,0,0"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"><Run x:Name="User"
+                             Foreground="White"
+                             Text="{}Unknow User" />
+                    </TextBlock>
+                    <WrapPanel Margin="0,0,0,0"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Top"
+                               DockPanel.Dock="Right"
+                               WindowChrome.IsHitTestVisibleInChrome="True">
+                        <Button x:Name="SysMinimizeBtn"
+                                Width="22"
+                                Height="20"
+                                Click="minimize_click"
+                                Style="{DynamicResource WinButtonMinimize}" />
+                        <Button x:Name="SysMaximizeBtn"
+                                Width="22"
+                                Height="20"
+                                Click="maximize_click"
+                                Style="{DynamicResource WinButtonMaximize}" />
+                        <Button x:Name="SysCloseBtn"
+                                Width="22"
+                                Height="20"
+                                Click="cross_click"
+                                Style="{DynamicResource WinButtonCross}" />
+                    </WrapPanel>
+                </DockPanel>
+                <DockPanel Grid.Row="1"
+                           Grid.ColumnSpan="2"
+                           Height="20"
+                           Margin="0"
+                           Background="#FF2F2F2F"
+                           DockPanel.Dock="Top">
+                    <Menu x:Name="MainMenu"
+                          Height="20"
+                          VerticalAlignment="Top"
+                          Background="#FF2F2F2F"
+                          Foreground="White"
+                          OpacityMask="#FF2F2F2F">
+                        <MenuItem Height="20"
+                                  Background="#FF2F2F2F"
+                                  Foreground="White"
+                                  Header="Action"
+                                  Style="{DynamicResource MenuItemStyle1}">
+                            <MenuItem Click="show_connector" Header="Connect" />
+                            <MenuItem Click="multi_cnt" Header="Multiconnect" />
+                            <MenuItem Header="Recent Connection" IsEnabled="false" />
+                            <MenuItem Header="Close Connections" />
+                            <Separator Style="{DynamicResource SeparatorStyle1}" />
+                            <MenuItem Click="menu_exit_item_click" Header="Exit" />
+                        </MenuItem>
+                        <MenuItem Foreground="White" Header="View">
+                            <MenuItem Header="Side Bar">
+                                <MenuItem x:Name="Hide_Sidebar"
+                                          Click="hide_show_sidebar"
+                                          Header="Hide Side Bar" />
+                            </MenuItem>
+                            <MenuItem Header="Work Page Style">
+                                <MenuItem Header="Thumbs" />
+                                <MenuItem Header="Text Nodes" />
+                            </MenuItem>
+                            <MenuItem x:Name="Menu_Mode"
+                                      Header="Control Mode"
+                                      IsEnabled="False" />
+                        </MenuItem>
+                        <MenuItem Foreground="White" Header="Find">
+                            <MenuItem Header="Find" />
+                        </MenuItem>
+                        <MenuItem Foreground="White" Header="Preferences">
+                            <MenuItem Click="show_settings" Header="Settings" />
+                        </MenuItem>
+                        <MenuItem Foreground="White" Header="Help">
+                            <MenuItem Click="documentation_click" Header="Documentation" />
+                            <MenuItem Click="twitter_click" Header="Twitter" />
+                            <MenuItem Header="Purchase License" />
+                            <MenuItem Header="Enter License" />
+                            <MenuItem Header="Check for Updates..." />
+                            <MenuItem Click="about_click" Header="About" />
+                        </MenuItem>
+                    </Menu>
+                </DockPanel>
+                <ScrollViewer x:Name="Sidebar"
+                              Grid.Row="2"
+                              Grid.RowSpan="2"
+                              Width="auto"
+                              Height="auto"
+                              Margin="0"
+                              Background="#FFBFBFBF"
+                              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                              ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    <TreeView Width="auto"
+                              Height="auto"
+                              Background="{x:Null}"
+                              BorderBrush="Transparent"
+                              Padding="-15,2,0,0">
+                        <TreeViewItem x:Name="TreeGroup"
+                                      Header="GROUP"
+                                      IsExpanded="false" />
+                        <TreeViewItem x:Name="TreeUngroup"
+                                      Header="UNGROUP"
+                                      IsExpanded="false" />
+                    </TreeView>
+                </ScrollViewer>
+                <GridSplitter x:Name="Side_Splitter"
+                              Grid.Row="2"
+                              Grid.RowSpan="2"
+                              Width="3"
+                              VerticalAlignment="Stretch"
+                              Background="Transparent" />
+                <DockPanel x:Name="TabBack"
+                           Grid.Row="2"
+                           Grid.RowSpan="2"
+                           Grid.Column="1"
+                           Height="auto"
+                           Background="#3e3d3d"
+                           MouseLeftButtonDown="main_tab_mouse_dbl_click" />
+                <TabControl x:Name="MainTab"
+                            Grid.Row="2"
+                            Grid.RowSpan="2"
+                            Grid.Column="1"
+                            Background="#FF222222"
+                            BorderBrush="#FF222222"
+                            Style="{DynamicResource TabControlStyle1}" />
+                <Grid x:Name="TabEmptyPanel"
+                      Grid.Row="2"
+                      Grid.RowSpan="2"
+                      Grid.Column="1" />
+                <Grid Grid.Row="4"
+                      Grid.ColumnSpan="2"
+                      Background="#FFE3E3E3"
+                      DockPanel.Dock="Bottom"
+                      TextBlock.FontFamily="Verdana"
+                      TextBlock.FontSize="10"
+                      TextBlock.Foreground="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="70" MaxWidth="150" />
+                        <ColumnDefinition Width="70" MaxWidth="150" />
+                    </Grid.ColumnDefinitions>
+                    <DockPanel x:Name="StatusBar"
+                               Height="15"
+                               Background="#FF363535">
+                        <TextBlock x:Name="StatusBarText" Margin="3,0,0,0" />
+                    </DockPanel>
+                    <DockPanel x:Name="StatusBar_Online"
+                               Grid.Column="1"
+                               Grid.ColumnSpan="2"
+                               Height="15"
+                               Margin="0,0,68,0"
+                               Background="#FF363535" />
+                    <DockPanel x:Name="StatsBar_Group"
+                               Grid.Column="2"
+                               Height="15"
+                               Margin="2,0,0,0"
+                               Background="#FF363535" />
+                </Grid>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</Window>
