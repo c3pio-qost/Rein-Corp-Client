@@ -128,101 +128,98 @@ namespace ReinCorpDesign
         //    }
         //}
 
-        public static void start_one_to_one(object Args)
+        public static void start_one_to_one (object Args)
         {
             GlobalTypes.ClientInfo tmp = Args as GlobalTypes.ClientInfo;
-            if ((!RCConnectLibrary.Threads_Already_Started) && (tmp != null))
-            {
+            if ((!RCConnectLibrary.Threads_Already_Started) && (tmp != null)) {
                 RCConnectLibrary.send_to_all_sys_msg(new GlobalTypes.SysMessageStruct("SCR", 11));
 
                 tmp.HostInfo.ScreenPort = RCConnectLibrary.port_dealer(tmp.HostInfo.Addr, new GlobalTypes.SysMessageStruct
             ("PRT", 0), 8268); //TCP port + 1
                 RCConnectLibrary.Opened_Ports.Add(tmp.HostInfo.ScreenPort);
                 //Выполнить проверку если порты принялись нулевые....если так то сервер выеживается
-                if (tmp.HostInfo.ScreenPort == 0)
-                {
-                    Thread.CurrentThread.Abort();
-                }
-                XPorter.Bus.Main_Handle.Dispatcher.Invoke(new MethodInvoker(delegate()
-                {
-                    var tab = XPorter.Bus.Main_Handle.uni_tab_creator(null, true);
-                    tab.Unloaded += delegate
+                if (tmp.HostInfo.ScreenPort != 0) {
+                    XPorter.Bus.Main_Handle.Dispatcher.Invoke(new MethodInvoker(delegate()
                     {
-                        TcpClient client = RCConnectLibrary.get_tcp(tmp.HostInfo.Addr, GlobalTypes.Settings.TCPPort);
-                        if (client != null)
+                        var tab = XPorter.Bus.Main_Handle.uni_tab_creator(null, true);
+                        tab.Unloaded += delegate
                         {
-                            RCConnectLibrary.sys_msg_analyzer(
-                                client,
-                                null,
-                                new GlobalTypes.SysMessageStruct("SCR", 11)
-                                );
-                            client.Close();
-                        }
-                        //MainWindow.thr_killer(RCScreenClient.thr_One_To_One);
-                    };
-
-                    tab.Loaded += delegate
-                    {
-                        Grid target_grid = new Grid();
-                        tab.Content = target_grid;
-                        tab.Header = (GlobalTypes.Settings.TabHeader == "IP") ?
-                            tmp.HostInfo.Addr.ToString() : tmp.HostInfo.HostName;
-                        scrfrm _win = new scrfrm(target_grid, tab, tmp);
-                        ((FrameworkElement)tab.Template.FindName("Cross", tab)).MouseLeftButtonDown += delegate(
-                            object ss,
-                            MouseButtonEventArgs ee
-                            )
-                            {
-                            _win.Close();
-                            XPorter.Bus.Main_Handle.MainTab.Items.Remove(tab);
+                            TcpClient client = RCConnectLibrary.get_tcp(tmp.HostInfo.Addr, GlobalTypes.Settings.TCPPort);
+                            if (client != null) {
+                                RCConnectLibrary.sys_msg_analyzer(
+                                    client,
+                                    null,
+                                    new GlobalTypes.SysMessageStruct("SCR", 11)
+                                    );
+                                client.Close();
+                            }
+                            //MainWindow.thr_killer(RCScreenClient.thr_One_To_One);
                         };
 
-
-                        Bitmap bmp = new Bitmap(800, 600);
-                        using (var gr = Graphics.FromImage(bmp))
+                        tab.Loaded += delegate
                         {
-                            gr.Clear(System.Drawing.Color.Black);
-                        }
-                        _win.Screen_Box.Image = bmp;
-                    };
-                    //_Win.GotFocus += delegate
-                    //{
-                    //    XPorter.Bus.MDI.curentAddress = tmp.HostInfo.Addr;
-                    //    IPEndPoint point = new IPEndPoint(XPorter.Bus.MDI.curentAddress, 5002);
-                    //    keyboardClient = new TcpClient();
-                    //    keyboardClient.Connect(point);
-                    //    RCHLib.RCHookManager.Keyboard += KeyboardControl;
-                    //};
-                    //_Win.LostFocus += delegate
-                    //{
-                    //   // keyboardClient.Close();
-                    //    XPorter.Bus.MDI.curentAddress = null;
-                    //    RCHLib.RCHookManager.Keyboard -= KeyboardControl;
-                    //};
+                            Grid target_grid = new Grid();
+                            tab.Content = target_grid;
+                            tab.Header = (GlobalTypes.Settings.TabHeader == "IP") ?
+                                tmp.HostInfo.Addr.ToString() : tmp.HostInfo.HostName;
+                            scrfrm _win = new scrfrm(target_grid, tab, tmp);
+                            ((FrameworkElement)tab.Template.FindName("Cross", tab)).MouseLeftButtonDown += delegate(
+                                object ss,
+                                MouseButtonEventArgs ee
+                                )
+                                {
+                                    _win.Close();
+                                    XPorter.Bus.Main_Handle.MainTab.Items.Remove(tab);
+                                };
 
 
-                    //IntPtr refBitmap = bmp.GetHbitmap();
-                    //BitmapSource bmpsrc;
-                    //bmpsrc = Imaging.CreateBitmapSourceFromHBitmap(
-                    //refBitmap, 
-                    //IntPtr.Zero, 
-                    //Int32Rect.Empty, 
-                    //BitmapSizeOptions.FromEmptyOptions()
-                    //);
-                    //MainWindow.ScreenBox.Source = bmpsrc;
-                    //TAB_item.Content=MainWindow.ScreenBox;
-                    //Grid.SetRowSpan(MainWindow.ScreenBox, 2);
-                    //MainWindow.DeleteObject(refBitmap);
-                }));
-                MainWindow.thr_killer(RCScreenClient.thr_Get_Img_From_UDP);
-                TcpClient _client = RCConnectLibrary.get_tcp(tmp.HostInfo.Addr,GlobalTypes.Settings.TCPPort);
-                RCConnectLibrary.sys_msg_analyzer(_client, tmp, new GlobalTypes.SysMessageStruct("SCR", 10));
-                //Object[] args = new Object[2];
-                //args[0] = tmp;
-                //args[1] = new GlobalTypes.ServiceMessageStruct("GET", 3);
-                //RCScreenClient.get_query(args);
+                            Bitmap bmp = new Bitmap(800, 600);
+                            using (var gr = Graphics.FromImage(bmp)) {
+                                gr.Clear(System.Drawing.Color.Black);
+                            }
+                            _win.Screen_Box.Image = bmp;
+                        };
+                        //_Win.GotFocus += delegate
+                        //{
+                        //    XPorter.Bus.MDI.curentAddress = tmp.HostInfo.Addr;
+                        //    IPEndPoint point = new IPEndPoint(XPorter.Bus.MDI.curentAddress, 5002);
+                        //    keyboardClient = new TcpClient();
+                        //    keyboardClient.Connect(point);
+                        //    RCHLib.RCHookManager.Keyboard += KeyboardControl;
+                        //};
+                        //_Win.LostFocus += delegate
+                        //{
+                        //   // keyboardClient.Close();
+                        //    XPorter.Bus.MDI.curentAddress = null;
+                        //    RCHLib.RCHookManager.Keyboard -= KeyboardControl;
+                        //};
+
+
+                        //IntPtr refBitmap = bmp.GetHbitmap();
+                        //BitmapSource bmpsrc;
+                        //bmpsrc = Imaging.CreateBitmapSourceFromHBitmap(
+                        //refBitmap, 
+                        //IntPtr.Zero, 
+                        //Int32Rect.Empty, 
+                        //BitmapSizeOptions.FromEmptyOptions()
+                        //);
+                        //MainWindow.ScreenBox.Source = bmpsrc;
+                        //TAB_item.Content=MainWindow.ScreenBox;
+                        //Grid.SetRowSpan(MainWindow.ScreenBox, 2);
+                        //MainWindow.DeleteObject(refBitmap);
+                    }));
+                    MainWindow.thr_killer(RCScreenClient.thr_Get_Img_From_UDP);
+                    TcpClient _client = RCConnectLibrary.get_tcp(tmp.HostInfo.Addr, GlobalTypes.Settings.TCPPort);
+                    RCConnectLibrary.sys_msg_analyzer(_client, tmp, new GlobalTypes.SysMessageStruct("SCR", 10));
+                    //Object[] args = new Object[2];
+                    //args[0] = tmp;
+                    //args[1] = new GlobalTypes.ServiceMessageStruct("GET", 3);
+                    //RCScreenClient.get_query(args);
+                }
+                else {
+                    System.Windows.Forms.MessageBox.Show("Lost Connection!");
+                }
             }
-
         }
 
         private static void unicast(object sender, RoutedEventArgs e)

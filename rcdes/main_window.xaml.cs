@@ -1,4 +1,33 @@
-﻿using System;
+﻿/*****
+ *       Reincorp Studio is Network Tools for System Administrators  
+ *                                                                   
+ *                                                                   
+ *        Copyright (C)  2017
+ *                                                                   
+ *                                                                   
+ * This program is free software; you can redistribute it and/or     
+ * modify it under the terms of the GNU General Public License       
+ * as published by the Free Software Foundation; either version 3    
+ * of the License, or any later version.                             
+ *                                                                   
+ *                                                                   
+ * This program is distributed in the hope that it will be useful,   
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of    
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the     
+ * GNU General Public License for more details.                      
+ *                                                                   
+ * You should have received a copy of the GNU General Public License 
+ * along with this program; if not, write to the Free Software       
+ * RCgroup, Inc., Republic of Kazakhstan, Kostanay,                  
+ ****/
+
+ /*************************************************************
+ *                                                            *
+ * Included Library                                           *
+ *                                                            *
+ *                                                            *
+ **************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +56,7 @@ using System.Threading;
 using System.Xml.Serialization;
 using System.Resources;
 
+
 namespace ReinCorpDesign
 {
     //namespace to access from another module
@@ -43,7 +73,8 @@ namespace ReinCorpDesign
             public static int Top { get; set; }
             public static double Inner_Width { get; set; }
             public static double Inner_Height { get; set; }
-            public static string Current_User; 
+            public static string Current_User;
+            public static string hardware_remote_address = "192.168.43.2";
             public static bool Is_Main_Menu_Enabled
             {
                 get
@@ -203,7 +234,13 @@ namespace ReinCorpDesign
                     Work_Page = uni_tab_creator("WorkPage", true);
                     Work_Page.Unloaded += delegate
                     {
-                        Client_Catalog.Clear();
+                        XPorter.Bus.Main_Handle.Dispatcher.BeginInvoke(new System.Windows.Forms.MethodInvoker(delegate
+                        {
+                            XPorter.Bus.Main_Handle.TreeUngroup.Items.Clear();
+                            lock (MainWindow.Client_Catalog) {
+                                Client_Catalog.Clear();
+                            }
+                        }));
                     };
                     Grid_In = new Grid();
                     ScrollViewer main_scrl_viewer = new ScrollViewer();
@@ -215,6 +252,9 @@ namespace ReinCorpDesign
                     Work_Page.Content = Grid_In;
 
                     //MainTab.Items.Add(Work_Page);
+                }
+                else {
+                    MainTab.SelectedItem = Work_Page;
                 }
 
                 VisualEffectsAndComponents.MainWindowVisualEffects.Curtain.curtain_fx(

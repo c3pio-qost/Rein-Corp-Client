@@ -182,46 +182,40 @@ namespace ReinCorpDesign
         //analyze msg for futher action
         public static void sys_msg_analyzer(TcpClient tcp_client, GlobalTypes.ClientInfo item, GlobalTypes.SysMessageStruct main_msg)
         {
-            NetworkStream net_stream = tcp_client.GetStream();
-            send_to<GlobalTypes.SysMessageStruct>(net_stream, main_msg);
-            switch (Encoding.UTF8.GetString(main_msg.Msg))
-            {
-                #region Screen
-                case "SCR":
-                    {
-                        switch (main_msg.Flag)
-                        {
-                            case 0:
-                                {
-                                    tcp_client.Client.ReceiveTimeout = 5000;
-                                    GlobalTypes.SysMessageStruct host_inf = receive_from<GlobalTypes.SysMessageStruct>(net_stream);
-                                    GlobalTypes.SysMessageStruct msg = receive_from<GlobalTypes.SysMessageStruct>(net_stream);
-                                    if ((host_inf != null) && (msg != null))
-                                    {
+            try {
+                NetworkStream net_stream = tcp_client.GetStream();
+                send_to<GlobalTypes.SysMessageStruct>(net_stream, main_msg);
+                switch (Encoding.UTF8.GetString(main_msg.Msg)) {
+                    #region Screen
+                    case "SCR": {
+                            switch (main_msg.Flag) {
+                                case 0: {
+                                        tcp_client.Client.ReceiveTimeout = 5000;
+                                        GlobalTypes.SysMessageStruct host_inf = receive_from<GlobalTypes.SysMessageStruct>(net_stream);
+                                        GlobalTypes.SysMessageStruct msg = receive_from<GlobalTypes.SysMessageStruct>(net_stream);
+                                        if ((host_inf != null) && (msg != null)) {
                                             cnt_elem_refr(new GlobalTypes.HostInfo(
                                             ((IPEndPoint)tcp_client.Client.RemoteEndPoint).Address,
-                                            host_inf.Info), msg, item, item!=null);
+                                            host_inf.Info), msg, item, item != null);
+                                        }
+                                        else {
+                                            MessageBox.Show("Не удалось установить соединение"); //Дописать в лог
+                                        }
+                                    } break;
+                                case 11: {
+
                                     }
-                                    else
-                                    {
-                                        MessageBox.Show("Не удалось установить соединение"); //Дописать в лог
-                                    }
-                                } break;
-                            case 11:
-                                {
-                                   
-                                }
-                                break;
-                            default:
-                                {
-                                    if ((main_msg.Flag > 0) && (main_msg.Flag < 11))
-                                    {
-                                    }
-                                }break;
-                        }
-                    } break;
-                #endregion
+                                    break;
+                                default: {
+                                        if ((main_msg.Flag > 0) && (main_msg.Flag < 11)) {
+                                        }
+                                    } break;
+                            }
+                        } break;
+                    #endregion
+                }
             }
+            catch (Exception ex) { MessageBox.Show("Lost Connection"); }
         }
 
 	//get all busied port registered in the System
